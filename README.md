@@ -1,7 +1,7 @@
 
 
 # Eksi-PHP
-Ekşi sözlük scraper
+Ekşi Sözlüğün unofficial API'si. Ekşi Sözlük'ten Entry/Kullanıcı/Gündem çeker.
 
 ## Başlarken
 
