@@ -1,5 +1,5 @@
 <center>
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_logo.png" width="150" height="300" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_logo.png" width="750" height="300" />
 <br>
 </center>
 
