@@ -4,6 +4,85 @@ require_once "simple_html_dom.php";
 
 class eksi {
     public $url;
+    function autoComplete($baslik) {
+        $ch2 = curl_init();
+        curl_setopt($ch2, CURLOPT_URL, 'https://eksisozluk.com/autocomplete/query?q='.$baslik.'&_=1576351666033');
+        curl_setopt($ch2, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch2, CURLOPT_HTTPHEADER, array(
+            'Referer: https://eksisozluk.com/',
+            'X-Requested-With: XMLHttpRequest'
+        ));
+        return $Json = json_decode($GundemSonuc2 = curl_exec($ch2), true);
+    }
+    
+    private function getBaslikID($baslik) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://eksisozluk.com/'.$baslik.'');
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $a = curl_exec($ch);
+        $HTTPCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if ($HTTPCode == 404) {
+            $Json = $this->autoComplete(substr($baslik, 0, -3));
+            echo '<b> Hata Kodu: 2 </b> <br> Bilinmeyen Başlık. Böyle bir başlık yok. <i> '.$Json["Titles"][0].' </i> başlığını aratabilirsiniz.';
+        } else {
+            return $url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+        }
+
+    }
+    
+    public function checkCookies ($cookies) {
+        $ch2 = curl_init();
+        curl_setopt($ch2, CURLOPT_URL, 'https://eksisozluk.com/');
+        curl_setopt($ch2, CURLOPT_HEADER, true);
+        curl_setopt($ch2, CURLOPT_HTTPHEADER, array("Cookie: __gfp_64b=ADJ3JN5eiCcFFHzS0qms7uV6WPHWaO8Ibg3GwZ0Uxu3.57; _ga=GA1.2.1733273535.1576951415; _gid=GA1.2.1161511079.1576951415; ASP.NET_SessionId=led1i5kytz4pvl25mq2sqxtn; iq=1b32ef204ef44561991aff85ff309c89; __RequestVerificationToken=GxOECXB1FAS3pEa5fDSAtM5y-BBzXa8YbtseRcWcWd2XhERhU0XIZLm17lfi6tkMP-WVkZYNWwR0zG2do1QlPhlpLeVT6A5IC-mBmGa3NpY1; sticky_id=82a3c316ed3e3d8a1e5076a1756ad1e5; a=$cookies"));
+        curl_setopt($ch2, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch2, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+        $GirisSonuc = curl_exec($ch2);
+
+        $Giris = str_get_html($GirisSonuc);
+        $HTTPCode = curl_getinfo($ch2, CURLINFO_HTTP_CODE);
+        $NickName = $Giris->find('li[class=not-mobile]')[0]->find('a')[0]->title;
+
+
+        if (isset($NickName)) {
+            $this->cookie = $cookies;
+            return true;
+        } else {
+            return false;
+            echo "<b> Hata Kodu: 5 </b> <br> Giriş Başarısız. Sanırım, <i> cookiesiniz </i> süresi doldu. Yeni Cookies alınız.\n Sunucudan dönen hata: $HTTPCode";
+        }
+    }
+    
+    function sendEntry ($baslik, $entry) {
+
+        $kuki = $this->cookie;
+        $Id = explode("--", $this->getBaslikID($baslik))[1];
+
+        $ch2 = curl_init();
+        curl_setopt($ch2, CURLOPT_URL, 'https://eksisozluk.com/entry/ekle');
+        curl_setopt($ch2, CURLOPT_HEADER, true);
+        curl_setopt($ch2, CURLOPT_HTTPHEADER, array("Cookie: __gfp_64b=ADJ3JN5eiCcFFHzS0qms7uV6WPHWaO8Ibg3GwZ0Uxu3.57; _ga=GA1.2.1733273535.1576951415; _gid=GA1.2.1161511079.1576951415; ASP.NET_SessionId=led1i5kytz4pvl25mq2sqxtn; iq=1b32ef204ef44561991aff85ff309c89; __RequestVerificationToken=GxOECXB1FAS3pEa5fDSAtM5y-BBzXa8YbtseRcWcWd2XhERhU0XIZLm17lfi6tkMP-WVkZYNWwR0zG2do1QlPhlpLeVT6A5IC-mBmGa3NpY1; sticky_id=82a3c316ed3e3d8a1e5076a1756ad1e5; a=$kuki"));
+        curl_setopt($ch2, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch2, CURLOPT_POST, 1);
+        curl_setopt($ch2, CURLOPT_POSTFIELDS, "__RequestVerificationToken=xiQ8ZyP-DgTrarXdShqOTeBV4XQf333dLeEW4DZ7tp0EntWGDV3yzDimCJVzV6jlKgAe_8iDTVdhiHjwhv-2WZsKX9wj1QWY7zqH38hqRlY1&Title=$baslik&Id=$Id&ReturnUrl=&InputStartTime=22.12.2019+14%3A10%3A50&Content=$entry");     
+        curl_setopt($ch2, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+        $GirisSonuc = curl_exec($ch2);
+        $url = curl_getinfo($ch2, CURLINFO_EFFECTIVE_URL);
+        $HTTPCode = curl_getinfo($ch2, CURLINFO_HTTP_CODE);
+
+        if (strstr($url, "/entry/")) {
+            return str_replace("https://eksisozluk.com/entry/", "", $url);
+        } else {
+            echo "<b> Hata Kodu: 6 </b> <br> Entry Eklenemedi. Sanırım, <i> cookiesiniz </i> süresi doldu. Yeni Cookies alınız.\n Sunucudan dönen hata: $HTTPCode, $url";
+
+        }
+
+    }
 
     function Gundem($Entry) {
         
@@ -59,17 +138,7 @@ class eksi {
         $info = curl_getinfo($ch);
 
         if ($info["http_code"] == "404") {
-            $ch2 = curl_init();
-            curl_setopt($ch2, CURLOPT_URL, 'https://eksisozluk.com/autocomplete/query?q='.substr($Baslik, 0, -3).'&_=1576351666033');
-            curl_setopt($ch2, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch2, CURLOPT_HTTPHEADER, array(
-                'Referer: https://eksisozluk.com/',
-                'X-Requested-With: XMLHttpRequest'
-            ));
-            $Json = json_decode($GundemSonuc2 = curl_exec($ch2), true);
-            
-
+            $Json = $this->autoComplete(substr($Baslik, 0, -3));
             echo '<b> Hata Kodu: 2 </b> <br> Bilinmeyen Başlık. Böyle bir başlık yok. <i> '.$Json["Titles"][0].' </i> başlığını aratabilirsiniz.';
         } else {
             $ch = curl_init();
