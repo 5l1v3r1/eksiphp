@@ -21,7 +21,7 @@ Bu API resmi değildir. Tamamen Unofficaldir.
 ## Fonksiyonlar
 
 ### ->autoComplete()
-[![image](https://i.hizliresim.com/qArOlW.png)](https://hizliresim.com/qArOlW)
+<img src="https://i.hizliresim.com/qArOlW.png" alt="autocomplete ekşi sözlük">
 
 Bu fonksiyon Ekşi Sözlük otomatik tamamlamasını çeker.
 	
