@@ -1,9 +1,7 @@
-<center>
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_logo.png" width="850" height="250" />
-<br>
-</center>
 
-### Eksi-PHP
+<img alt="ekşi logo" aling="center" src="https://upload.wikimedia.org/wikipedia/commons/1/17/Ek%C5%9Fi_S%C3%B6zl%C3%BCk_logo.png"/>
+
+# Eksi-PHP
 Ekşi Sözlüğün unofficial API'si. Ekşi Sözlük'ten Entry/Kullanıcı/Gündem çeker. Giriş yapabilir, entry gönderebilirsiniz.
 
 ## Başlarken
