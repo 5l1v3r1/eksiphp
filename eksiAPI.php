@@ -33,7 +33,7 @@ class eksi {
 
     }
     
-    public function checkCookies ($cookies) {
+    public function setCookie ($cookies) {
         $ch2 = curl_init();
         curl_setopt($ch2, CURLOPT_URL, 'https://eksisozluk.com/');
         curl_setopt($ch2, CURLOPT_HEADER, true);
@@ -56,9 +56,61 @@ class eksi {
             echo "<b> Hata Kodu: 5 </b> <br> Giriş Başarısız. Sanırım, <i> cookiesiniz </i> süresi doldu. Yeni Cookies alınız.\n Sunucudan dönen hata: $HTTPCode";
         }
     }
-    
-    function sendEntry ($baslik, $entry) {
 
+    function girisYap($email, $pass) {
+        // https://github.com/aParsecFromFuture/eksi_sozluk/blob/master/index.php
+      
+          function getLoginPage(&$ch){
+              curl_setopt($ch,CURLOPT_URL,"https://eksisozluk.com/giris?returnUrl=https%3A%2F%2Feksisozluk.com%2F");
+              curl_setopt($ch,CURLOPT_USERAGENT,$_SERVER["HTTP_USER_AGENT"]);
+              curl_setopt($ch,CURLOPT_FOLLOWLOCATION,true);
+              curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+              curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+              curl_setopt($ch, CURLOPT_VERBOSE, TRUE);
+              curl_setopt($ch,CURLOPT_COOKIEJAR,__DIR__ . "\\cookie.txt");
+              curl_setopt($ch,CURLOPT_COOKIEFILE,__DIR__ . "\\cookie.txt");
+              return curl_exec($ch);
+          }
+          function login(&$ch,$email, $pass, $data){
+              preg_match('/name="__RequestVerificationToken" type="hidden" value="(.*?)" /is', $data, $regs);
+              $token = $regs[1];
+              $post_array = array(
+              "UserName" => $email,/*sitedeki kullanıcı adın*/
+              "Password" => $pass,/*sitedeki şifren*/
+              "ReturnUrl" => "https://eksisozluk.com/basarili--55042",
+              "RememberMe" => "true",
+              "__RequestVerificationToken" => $token);
+              
+              
+              curl_setopt($ch,CURLOPT_URL,"https://eksisozluk.com/giris");
+              curl_setopt($ch,CURLOPT_POST,true);
+              curl_setopt($ch,CURLOPT_POSTFIELDS,$post_array);
+              return curl_exec($ch);
+        }
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+      
+          $data = getLoginPage($ch);
+        $data = login($ch,$email,$pass, $data);
+        
+        // https://stackoverflow.com/questions/895786/how-to-get-the-cookies-from-a-php-curl-into-a-variable
+        preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $data, $matches);
+        $cookies = array();
+        foreach($matches[1] as $item) {
+            parse_str($item, $cookie);
+            $cookies = array_merge($cookies, $cookie);
+        }
+
+        
+        if(isset($cookies["a"]))  {
+             $this->cookie = str_replace(" ", "+", $cookies["a"]);
+        } else {
+            echo "<b> Hata Kodu: 5 </b> <br> Giriş Başarısız. Sanırım, <i> eposta </i> veya <i> şifre </i> yanlış. Ama hangisi söylemem.2";
+        }
+      }
+
+    function sendEntry ($baslik, $entry) {
         $kuki = $this->cookie;
         $Id = explode("--", $this->getBaslikID($baslik))[1];
 
@@ -76,7 +128,7 @@ class eksi {
         $HTTPCode = curl_getinfo($ch2, CURLINFO_HTTP_CODE);
 
         if (strstr($url, "/entry/")) {
-            return str_replace("https://eksisozluk.com/entry/", "", $url);
+            return true;
         } else {
             echo "<b> Hata Kodu: 6 </b> <br> Entry Eklenemedi. Sanırım, <i> cookiesiniz </i> süresi doldu. Yeni Cookies alınız.\n Sunucudan dönen hata: $HTTPCode, $url";
 
