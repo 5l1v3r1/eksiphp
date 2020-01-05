@@ -14,6 +14,7 @@ Ekşi Sözlüğün unofficial API'si. Ekşi Sözlük'ten Entry/Kullanıcı/Günd
 
 ## Kullanımı
 Örnek Kod: https://github.com/Quiec/Eksi-PHP/blob/master/eksi.php
+
 Sınıfın kullanımı hakkında bilgi sahibi olmak için ya da fonksiyonları öğrenmek için wiki sayfasına bakabilirsiniz. Size yardımcı olmak için alta link ekledim :)!
 
 
