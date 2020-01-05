@@ -12,27 +12,17 @@
 # Eksi-PHP
 Ekşi Sözlüğün unofficial API'si. Ekşi Sözlük'ten Entry/Kullanıcı/Gündem çeker. Giriş yapabilir, entry gönderebilirsiniz.
 
-## Başlarken
-
-Bu API resmi değildir. Tamamen Unofficaldir.
-
+## Kullanımı
 Örnek Kod: https://github.com/Quiec/Eksi-PHP/blob/master/eksi.php
 
-# To-Do
-Başında * olanlar önemli olanlardır.
+[Tüm Fonksiyonlar](https://github.com/Quiec/Eksi-PHP/wiki/Fonksiyonlar)
+[Üye Girişi Yapma](https://github.com/Quiec/Eksi-PHP/wiki/%C3%9Cye-Giri%C5%9Fi-Yapma)
+[Entry Gönderme](https://github.com/Quiec/Eksi-PHP/wiki/Entry-G%C3%B6nderme)
 
-- * Email:Password ile otomatik "a" cookiesi çekilcek.
-- Vote, Entry Düzenleme, Entry Silme, *Özel Mesaj*, Kullanıcının Kendi Bilgileri, Takip Etme
-- Baslik fonksiyonun sayfaya a getirilcek. (Tum entryler cekilcek)
-- Kullanıcı entryleri ve bilgileri cekecek.
-- * Bugun feedi eklenebilir.
-- Entry ID'i ile entry cekmek.
-- Entry düzenleme tarihinde bazı düzenlemeler.
+[Yapılacaklar](https://github.com/Quiec/Eksi-PHP/wiki/Yap%C4%B1lacaklar)
 
 ## License
-
 GNU General Public Licence v3.0
 
 ## Disclaimer
-
 `ekşisözlük` name, its variations and the logo are registered trademarks of [ekşi teknoloji ve bilişim a.ş.](http://eksiteknoloji.com/)
