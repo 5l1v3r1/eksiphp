@@ -16,8 +16,11 @@ Ekşi Sözlüğün unofficial API'si. Ekşi Sözlük'ten Entry/Kullanıcı/Günd
 Örnek Kod: https://github.com/Quiec/Eksi-PHP/blob/master/eksi.php
 
 [Tüm Fonksiyonlar](https://github.com/Quiec/Eksi-PHP/wiki/Fonksiyonlar)
+
 [Üye Girişi Yapma](https://github.com/Quiec/Eksi-PHP/wiki/%C3%9Cye-Giri%C5%9Fi-Yapma)
+
 [Entry Gönderme](https://github.com/Quiec/Eksi-PHP/wiki/Entry-G%C3%B6nderme)
+
 
 [Yapılacaklar](https://github.com/Quiec/Eksi-PHP/wiki/Yap%C4%B1lacaklar)
 
