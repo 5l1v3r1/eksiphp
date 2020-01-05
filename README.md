@@ -24,6 +24,8 @@ Sınıfın kullanımı hakkında bilgi sahibi olmak için ya da fonksiyonları �
 
 [Entry Gönderme](https://github.com/Quiec/Eksi-PHP/wiki/Entry-G%C3%B6nderme)
 
+[Entry Göndermek İçin Gerekli Olan Req1 Değişkenini Çekmek](https://github.com/Quiec/Eksi-PHP/wiki/Req1-%C3%87ekme)
+
 
 [Yapılacaklar](https://github.com/Quiec/Eksi-PHP/wiki/Yap%C4%B1lacaklar)
 
